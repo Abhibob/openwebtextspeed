@@ -6,6 +6,8 @@ import newspaper
 
 from lxml.html.clean import Cleaner
 from htmlmin import minify
+import extrhtml
+
 
 
 def find_and_filter_tag(tag, soup):
@@ -34,14 +36,15 @@ def raw_scraper(url, memoize):
         cleaner = Cleaner()
         cleaner.javascript = True
         cleaner.style = True
-        article = newspaper.Article(url, fetch_images=False, memoize_articles=memoize)
-        article.download()
-        html = minify(article.html)
-        html = cleaner.clean_html(html)
-        article.parse()
+        #article = newspaper.Article(url, fetch_images=False, memoize_articles=memoize)
+        #article.download()
+        article = extrhtml.Article(url)
+        if article.download():
+            html = minify(article.html)
+            html = cleaner.clean_html(html)
+        else:
+            return None, None
     except:
-        return None, None
-    if article.text == "":
         return None, None
 
     metadata = {"url": url, "elapsed": time.time() - t1, "scraper": "raw"}
