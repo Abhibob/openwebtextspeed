@@ -6,7 +6,7 @@ import newspaper
 
 from lxml.html.clean import Cleaner
 from htmlmin import minify
-import extrhtml
+import htmlcurl
 
 
 
@@ -38,7 +38,7 @@ def raw_scraper(url, memoize):
         cleaner.style = True
         #article = newspaper.Article(url, fetch_images=False, memoize_articles=memoize)
         #article.download()
-        article = extrhtml.Article(url)
+        article = htmlcurl.Article(url)
         if article.download():
             html = minify(article.html)
             html = cleaner.clean_html(html)
