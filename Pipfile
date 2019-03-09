@@ -15,7 +15,6 @@ newspaper3k = "*"
 htmlmin = "*"
 urlparse2 = "*"
 pandas = "*"
-pycurl = "*"
 
 [requires]
 python_version = "3.7"
