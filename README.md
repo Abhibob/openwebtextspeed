@@ -1,3 +1,9 @@
+This fork is fully compatible with jcpeterson/openwebtext but features a ultrafast raw scraper built from pycURL (libcurl wrapper). 
+THIS VERSION IS NOT PRODUCTION READY AND MORE IN AN ALPHA STATE. There is currently a timeout issue which causes a pretty bad 50/50 success ratio on Urls. Multithreaded download of each page is not implemented yet. Because newspaper is not used anymore for this scraper the newspaper.text != '' check is dropped. Benchmarks coming soon.
+
+Thanks to jcpeterson for great work on this project
+
+
 # OpenWebText
 
 [Joshua Peterson](http://joshpeterson.io), [Stephan Meylan](https://stephanmeylan.com), & David Bourgin
