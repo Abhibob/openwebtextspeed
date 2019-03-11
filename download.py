@@ -10,13 +10,13 @@ import os.path as op
 from glob import glob
 from hashlib import md5
 import pebble as pbl
-from concurrent.futures import TimeoutError
+import concurrent.futures
 
 # for backward compatibility
 from six.moves.urllib.request import urlopen
 
 from utils import mkdir, chunks, extract_month
-from scrapers2 import bs4_scraper, newspaper_scraper, raw_scraper
+from scrapers import bs4_scraper, newspaper_scraper, raw_scraper
 
 parser = argparse.ArgumentParser()
 parser.add_argument("url_file", type=str)
@@ -259,7 +259,7 @@ if __name__ == "__main__":
                 try:
                     result = next(chunk_iter.result())
                     cdata.append(result)
-                except TimeoutError:
+                except concurrent.futures.TimeoutError:
                     print("   --- Timeout Error ---   ")
         else:
             cdata = list(pool.map(download, chunk, chunksize=1).result())
