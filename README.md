@@ -1,8 +1,6 @@
 This fork is fully compatible with jcpeterson/openwebtext but features an much faster raw scraper built from pycURL (libcurl wrapper). 
 THIS VERSION IS NOT PRODUCTION READY AND MORE IN AN ALPHA STATE. Multithreaded download of each page is not implemented yet. Because newspaper is not used anymore for this scraper the newspaper.text != '' check is dropped. Benchmarks coming soon.
 
-Thanks to jcpeterson for great work on this project
-
 
 # OpenWebText
 
