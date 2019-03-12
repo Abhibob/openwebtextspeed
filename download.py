@@ -234,10 +234,10 @@ def archive_chunk_fast(month, cid, cdata, out_dir):
             #process.stdin.write(f)
 
 
-        with open(tar_fp + 'xyz', 'w') as file:
-            file.buffer.write(bytebuf.getvalue())
-        #process = subprcs.Popen("lbzip2", stdin=subprcs.PIPE, stdout=open(tar_fp, 'w'), stderr=subprcs.PIPE)
-        #print(process.communicate(bytebuf.getvalue()))
+        #with open(tar_fp + 'xyz', 'w') as file:
+        #    file.buffer.write(bytebuf.getvalue())
+        process = subprcs.Popen("lbzip2", stdin=subprcs.PIPE, stdout=open(tar_fp, 'w'), stderr=subprcs.PIPE)
+        print(process.communicate(bytebuf.getvalue()))
         docs_counted = True
 
     return doc_count
