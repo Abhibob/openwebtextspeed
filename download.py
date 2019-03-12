@@ -88,6 +88,12 @@ parser.add_argument(
     default=False,
     help="whether to show warnings in general during scraping",
 )
+parser.add_argument(
+    "--compress_fast",
+    action="store_true",
+    default=False,
+    help="should compress multithreaded (lbzip2)"
+)
 args = parser.parse_args()
 
 if not args.show_warnings:
@@ -194,6 +200,48 @@ def archive_chunk(month, cid, cdata, out_dir, fmt):
 
     return doc_count
 
+def archive_chunk_fast(month, cid, cdata, out_dir):
+    mkdir(out_dir)
+    texts, metas, fids, uids = zip(*cdata)
+
+    data_tar = op.join(out_dir, "{}-{}_data.{}".format(month, cid, "bz2"))
+    meta_tar = op.join(out_dir, "{}-{}_meta.{}".format(month, cid, "bz2"))
+    tar_fps, texts, exts = [data_tar, meta_tar], [texts, metas], ["txt", "json"]
+
+    doc_count = 0
+    docs_counted = False
+    for tar_fp, txts, ext in zip(tar_fps, texts, exts):
+
+        bytebuf = io.BytesIO()
+        for f, fid in zip(txts, fids):
+            if f == "":
+                continue
+            else:
+                if not docs_counted:
+                    doc_count += 1
+
+            if ext == "json":
+                f = json.dumps(f)
+
+            bytebuf.write(f.encode("utf-8"))
+
+
+
+            #t = tarfile.TarInfo("{}.{}".format(fid, ext))
+            #t.size = len(f)
+            #tar.addfile(t, io.BytesIO(f))
+
+            #process.stdin.write(f)
+
+
+        with open(tar_fp + 'xyz', 'w') as file:
+            file.buffer.write(bytebuf.getvalue())
+        #process = subprcs.Popen("lbzip2", stdin=subprcs.PIPE, stdout=open(tar_fp, 'w'), stderr=subprcs.PIPE)
+        #print(process.communicate(bytebuf.getvalue()))
+        docs_counted = True
+
+    return doc_count
+
 
 #######################################################################
 #                           Util functions                            #
@@ -272,7 +320,10 @@ if __name__ == "__main__":
         if args.compress:
             print("Compressing...")
             t2 = time.time()
-            count = archive_chunk(month, cid, cdata, args.output_dir, args.compress_fmt)
+            if args.compress_fast:
+                count = archive_chunk_fast(month, cid, cdata, args.output_dir)
+            elif args.compress:
+                count = archive_chunk(month, cid, cdata, args.output_dir, args.compress_fmt)
             print("Archive created in {} seconds".format(time.time() - t2))
             print("{} out of {} URLs yielded content\n".format(count, len(chunk)))
 
