@@ -267,13 +267,6 @@ def set_state(state_fp, cdata):
         for uid in uids:
             handle.write("{}\n".format(uid))
 
-def timeout_checker(url_entry,
-    scraper=args.scraper,
-    save_uncompressed=args.save_uncompressed,
-    memoize=args.scraper_memoize):
-    time.sleep(1)
-    return "xyz"
-
 
 
 if __name__ == "__main__":
@@ -322,7 +315,7 @@ if __name__ == "__main__":
             t2 = time.time()
             if args.compress_fast:
                 count = archive_chunk_fast(month, cid, cdata, args.output_dir)
-            elif args.compress:
+            else:
                 count = archive_chunk(month, cid, cdata, args.output_dir, args.compress_fmt)
             print("Archive created in {} seconds".format(time.time() - t2))
             print("{} out of {} URLs yielded content\n".format(count, len(chunk)))
