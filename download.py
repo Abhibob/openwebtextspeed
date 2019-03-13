@@ -214,6 +214,8 @@ def archive_chunk_fast(month, cid, cdata, out_dir):
     for tar_fp, txts, ext in zip(tar_fps, texts, exts):
 
         bytebuf = io.BytesIO()
+        process = subprcs.Popen("lbzip2", stdin=subprcs.PIPE, stdout=open(tar_fp, 'w'), stderr=subprcs.PIPE)
+        time.sleep(1)
         for f, fid in zip(txts, fids):
             if f == "":
                 continue
@@ -237,7 +239,6 @@ def archive_chunk_fast(month, cid, cdata, out_dir):
 
         #with open(tar_fp + 'xyz', 'w') as file:
         #    file.buffer.write(bytebuf.getvalue())
-        process = subprcs.Popen("lbzip2", stdin=subprcs.PIPE, stdout=open(tar_fp, 'w'), stderr=subprcs.PIPE)
         b = bytebuf.getvalue()
         print(process.communicate(b))
         docs_counted = True
