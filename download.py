@@ -11,6 +11,7 @@ from glob import glob
 from hashlib import md5
 import pebble as pbl
 import concurrent.futures
+import subprocess as subprcs
 
 # for backward compatibility
 from six.moves.urllib.request import urlopen
