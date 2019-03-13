@@ -215,7 +215,7 @@ def archive_chunk_fast(month, cid, cdata, out_dir):
 
         bytebuf = io.BytesIO()
         process = subprcs.Popen("lbzip2", stdin=subprcs.PIPE, stdout=open(tar_fp, 'w'), stderr=None)
-        time.sleep(0.5)
+        time.sleep(1)
         for f, fid in zip(txts, fids):
             if f == "":
                 continue
