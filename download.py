@@ -310,7 +310,7 @@ if __name__ == "__main__":
         print("Chunk time: {} seconds".format(time.time() - t1))
 
         # archive and save this chunk to file
-        if args.compress:
+        if args.compress or args.compress_fast:
             print("Compressing...")
             t2 = time.time()
             if args.compress_fast:
