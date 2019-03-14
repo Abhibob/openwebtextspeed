@@ -9,7 +9,7 @@ def get_pycurl(url):
     c.setopt(c.WRITEDATA, buffer)
     c.setopt(c.USERAGENT, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36")
     c.setopt(c.HEADERFUNCTION, header_function)
-    c.setopt(c.TIMEOUT, 30)
+    c.setopt(c.TIMEOUT, 20)
     c.setopt(c.FOLLOWLOCATION, True)
     c.setopt(c.FAILONERROR, True)
     c.perform()
