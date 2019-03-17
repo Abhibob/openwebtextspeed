@@ -1,6 +1,20 @@
-This fork is fully compatible with jcpeterson/openwebtext but features an much faster raw scraper built from pycURL (libcurl wrapper). 
-THIS VERSION IS NOT PRODUCTION READY AND MORE IN AN ALPHA STATE. Multithreaded download of each page is not implemented yet. Because newspaper is not used anymore for this scraper the newspaper.text != '' check is dropped. Benchmarks coming soon.
+# OpenWebText scraping optimised
 
+This fork is fully compatible with jcpeterson/openwebtext but features an much faster raw scraper built from pycURL. It also features integration of the multicore bzip2 archiver [lbzip2](http://lbzip2.org/) on linux. This leads to an increase in speed of up to an order of magnitute and higher compared to jcpeterson's raw scraper. Also the multiprocessing implementation was replaced by [pebble] (https://pypi.org/project/Pebble/) which supports timeouts that stop stuck scraper processes automatically. There is some bugginess to it which I couldn't figure out but in general it works quite flawlessly.
+
+New features:
+- added lbzip2 support on linux (command line argument '--compress_fast) - install apt package 'lbzip2' first
+- process start method forkserver on linux (prevents deadlocks, enabled by default)
+- raw scraper by jcpeterson replaced with much faster pycurl implementation (command line argument '--scraper raw')
+
+**Note that these additions are independent from the original creators. They are not affiliated with this repository in any way.
+
+# Known bugs:
+- sometimes timeout still doesn't work as expected which leads to an alternative timeout error message "Timed out -> <Url>" originating   from pycurl built-in timeout
+  This doesn't affect operation but could be a warning sign of a bigger problem as there might be processes that get stuck outside of     pycurl. The overall percentage is small though and at this point I think it's unlikely to cause major performance issues.
+
+
+The description of the [original repository](https://github.com/jcpeterson/openwebtext)
 
 # OpenWebText
 
