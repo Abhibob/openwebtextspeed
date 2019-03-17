@@ -7,6 +7,7 @@ import tarfile
 import warnings
 import argparse
 import os.path as op
+import os
 from glob import glob
 from hashlib import md5
 import pebble as pbl
