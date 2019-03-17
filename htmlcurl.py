@@ -77,7 +77,7 @@ class Article(object):
             return True
         except Exception as e:
             self.download_state = ArticleDownloadState.FAILED
-            #if e.args[0] == 28:
+            if e.args[0] == 28:
                 print("Timed Out ->" + self.url)
             #print(e)
             return False
