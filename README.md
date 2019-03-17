@@ -7,14 +7,14 @@ New features:
 - process start method forkserver on linux (prevents deadlocks, enabled by default)
 - raw scraper by jcpeterson replaced with much faster pycurl implementation (command line argument '--scraper raw')
 
-**Note that these additions are independent from the original creators. They are not affiliated with this repository in any way.
+**Note that these additions are independent from the original creators. They are not affiliated with this repository in any way.**
 
 ## Known bugs:
 - sometimes timeout still doesn't work as expected which leads to an alternative timeout error message "Timed out -> <Url>" originating   from pycurl built-in timeout
   This doesn't affect operation but could be a warning sign of a bigger problem as there might be processes that get stuck outside of     pycurl. The overall percentage is small though and at this point I think it's unlikely to cause major performance issues.
 
 
-**The description of the [original repository](https://github.com/jcpeterson/openwebtext)
+**The description of the [original repository](https://github.com/jcpeterson/openwebtext)**
 
 ## OpenWebText
 
