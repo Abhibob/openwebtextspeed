@@ -12,6 +12,7 @@ from hashlib import md5
 import pebble as pbl
 import concurrent.futures
 import subprocess as subprcs
+import multiprocessing as mp
 
 # for backward compatibility
 from six.moves.urllib.request import urlopen
@@ -270,6 +271,8 @@ if __name__ == "__main__":
     # URLs we haven't scraped yet (if first run, all URLs in file)
     url_entries = load_urls(args.url_file, completed_uids, args.max_urls)
 
+    if os.name == 'posix':
+        mp.set_start_method('forkserver')
     pool = pbl.ProcessPool(max_workers=args.n_procs)
 
     # process one "chunk" of args.chunk_size URLs at a time
