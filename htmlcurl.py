@@ -44,7 +44,7 @@ def header_function(header_line):
         else:
             ct, cs = value.split(';', 1)
             if ct.strip() != 'text/html':
-                #print("Not html!")
+                print("Not html!")
                 return False
             cs = cs.strip()
             cs_name, cs_value = cs.split('=', 1)
@@ -78,7 +78,7 @@ class Article(object):
         except Exception as e:
             self.download_state = ArticleDownloadState.FAILED
             #if e.args[0] == 28:
-                #print("Timed Out ->" + self.url)
+                print("Timed Out ->" + self.url)
             #print(e)
             return False
 
